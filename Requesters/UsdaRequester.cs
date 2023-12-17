@@ -1,6 +1,4 @@
-﻿using System.Net.Http;
-using System.Text.Json;
-using Microsoft.Extensions.Caching.Memory;
+﻿using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.Logging;
 using Nutrition.Entities;
 using Nutrition.Helpers;
@@ -12,11 +10,11 @@ namespace Nutrition.Requesters;
 public class UsdaRequester : IUsdaRequester
 {
     public const string ApiKey = "wlqWiro71mqm7HP0zOed2gNaE4QTbe83KcAPDvTH";
-    private string _searchString;
     private readonly IFoodMapper _foodMapper;
     private readonly IHttpClientFactory _httpClientFactory;
     private readonly ILogger<UsdaRequester> _logger;
     private readonly MemoryCache _responseCache;
+    private string _searchString;
 
     public UsdaRequester(IFoodMapper foodMapper, IHttpClientFactory httpClientFactory, ILogger<UsdaRequester> logger)
     {
@@ -34,13 +32,12 @@ public class UsdaRequester : IUsdaRequester
         var food = await GetFoodFromUsda();
 
         var foodItemDto = _foodMapper.MapToDto(food);
-        
+
         return foodItemDto;
     }
 
     private async Task<Food> GetFoodFromUsda()
     {
-
         if (_responseCache.TryGetValue(_searchString, out var cachedResponse) && cachedResponse is Task<Food> taskResponse)
         {
             ConsoleHelper.WriteLineWithColor("Response retrieved from cache", ConsoleColor.DarkYellow);
@@ -48,19 +45,18 @@ public class UsdaRequester : IUsdaRequester
         }
 
         // Replace "YOUR_API_KEY" with your actual API key from the USDA FoodData Central API.
-        string apiUrl = $"https://api.nal.usda.gov/fdc/v1/foods/search?query={_searchString}&api_key={ApiKey}";
+        var apiUrl = $"https://api.nal.usda.gov/fdc/v1/foods/search?query={_searchString}&api_key={ApiKey}";
 
         try
         {
-            using (HttpClient client = _httpClientFactory.CreateClient("UsdaHttpClient"))
+            using (var client = _httpClientFactory.CreateClient("UsdaHttpClient"))
             {
+                var response = await client.GetAsync(apiUrl);
 
-                HttpResponseMessage response = await client.GetAsync(apiUrl);
-
-                UsdaResponse usdaResponse = new UsdaResponse();
+                var usdaResponse = new UsdaResponse();
                 if (response.IsSuccessStatusCode)
                 {
-                    string json = await response.Content.ReadAsStringAsync();
+                    var json = await response.Content.ReadAsStringAsync();
 
                     // Deserialize JSON into Food model
                     usdaResponse = UsdaResponse.FromJson(json);

@@ -1,18 +1,12 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
-using Microsoft.EntityFrameworkCore;
-using System;
-using Nutrition.Context;
-using Nutrition;
 using Microsoft.Extensions.Logging;
-using Microsoft.EntityFrameworkCore.Metadata;
-using Nutrition.Entities;
-using System.Text.Json;
+using Nutrition;
 
 public class Program
 {
     private static IServiceProvider _serviceProvider;
 
-    static async Task Main()
+    private static async Task Main()
     {
         // Setup DI container
         var startup = new Startup();
@@ -26,7 +20,6 @@ public class Program
 
         // Invoke the application
         await mainService?.Invoke();
-
     }
 
     private static void UnhandledExceptionHandler(object sender, UnhandledExceptionEventArgs e)
@@ -35,11 +28,10 @@ public class Program
         var logger = _serviceProvider.GetService<ILogger<Program>>();
 
         // Log the exception
-        Exception exception = (Exception)e.ExceptionObject;
+        var exception = (Exception) e.ExceptionObject;
         logger.LogError(exception, "Unhandled Exception");
 
         // Optionally perform any cleanup or shutdown actions
         Console.WriteLine("Performing cleanup...");
     }
-
 }

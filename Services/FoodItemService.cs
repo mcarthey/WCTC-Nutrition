@@ -1,6 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore;
-using Nutrition.Context;
-using Nutrition.Entities;
+﻿using Nutrition.Context;
 using Nutrition.Models;
 using Nutrition.Requesters;
 

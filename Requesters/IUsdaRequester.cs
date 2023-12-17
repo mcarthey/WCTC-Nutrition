@@ -1,5 +1,4 @@
-﻿using Nutrition.Entities;
-using Nutrition.Models;
+﻿using Nutrition.Models;
 
 namespace Nutrition.Requesters;
 

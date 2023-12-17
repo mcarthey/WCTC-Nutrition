@@ -1,5 +1,4 @@
-﻿using System.Threading.Channels;
-using Microsoft.Extensions.Logging;
+﻿using Microsoft.Extensions.Logging;
 using Nutrition.Helpers;
 using Nutrition.Models;
 
@@ -18,7 +17,7 @@ public class MainService : IMainService
     {
         ConsoleHelper.WriteLineWithColor("An empty search value will exit", ConsoleColor.DarkBlue);
         ConsoleHelper.WriteLineWithColor("Enter a food item: ", ConsoleColor.DarkGreen);
-        string foodItem = Console.ReadLine();
+        var foodItem = Console.ReadLine();
 
         while (!string.IsNullOrWhiteSpace(foodItem))
         {
@@ -30,9 +29,9 @@ public class MainService : IMainService
             ConsoleHelper.WriteLineWithColor("Enter a food item: ", ConsoleColor.DarkGreen);
             foodItem = Console.ReadLine();
         }
-
     }
-    static void PrintFoodDetails(FoodDto foodDto)
+
+    private static void PrintFoodDetails(FoodDto foodDto)
     {
         Console.WriteLine($"FDC ID: {foodDto.FdcId}");
         Console.WriteLine($"Description: {foodDto.Description}");
@@ -56,6 +55,4 @@ public class MainService : IMainService
         // Print other properties as needed
         Console.WriteLine();
     }
-
-
 }
