@@ -1,7 +1,7 @@
 ﻿using Nutrition.Entities;
+using Nutrition.Models;
 
 public interface IFoodItemService
 {
-    FoodItemDto GetFoodItemDetails(string foodItem);
-    Task<List<FoodItemDto>> GetFoodItemsFromUsda(string foodItem);
+    Task<FoodDto> GetFoodItemsFromUsda(string foodItem);
 }

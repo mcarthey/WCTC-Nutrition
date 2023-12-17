@@ -3,6 +3,7 @@ using System.Text.Json;
 using Microsoft.Extensions.Logging;
 using Nutrition.Entities;
 using Nutrition.Mappers;
+using Nutrition.Models;
 
 namespace Nutrition.Requesters;
 
@@ -10,31 +11,27 @@ public class UsdaRequester : IUsdaRequester
 {
     public const string ApiKey = "wlqWiro71mqm7HP0zOed2gNaE4QTbe83KcAPDvTH";
     private string _searchString;
-    private readonly IFoodItemMapper _foodItemMapper;
+    private readonly IFoodMapper _foodMapper;
     private readonly ILogger<UsdaRequester> _logger;
 
-    public UsdaRequester(IFoodItemMapper foodItemMapper, ILogger<UsdaRequester> logger)
+    public UsdaRequester(IFoodMapper foodMapper, ILogger<UsdaRequester> logger)
     {
-        _foodItemMapper = foodItemMapper;
+        _foodMapper = foodMapper;
         _logger = logger;
     }
 
-    public async Task<List<FoodItemDto>> Invoke(string searchString)
+    public async Task<FoodDto> Invoke(string searchString)
     {
         _searchString = searchString;
 
-        var foodItems = await GetFoodItemFromUsda();
+        var food = await GetFoodFromUsda();
 
-        List<FoodItemDto> foodItemDtos = new List<FoodItemDto>();
-        foreach (var foodItem in foodItems)
-        {
-            foodItemDtos.Add(_foodItemMapper.Map(foodItem));
-        }
-
-        return foodItemDtos;
+        var foodItemDto = _foodMapper.MapToDto(food);
+        
+        return foodItemDto;
     }
 
-    public async Task<List<Food>> GetFoodItemFromUsda()
+    private async Task<Food> GetFoodFromUsda()
     {
         // Replace "YOUR_API_KEY" with your actual API key from the USDA FoodData Central API.
         string apiUrl = $"https://api.nal.usda.gov/fdc/v1/foods/search?query={_searchString}&api_key={ApiKey}";
@@ -49,20 +46,20 @@ public class UsdaRequester : IUsdaRequester
                 HttpResponseMessage response = await client.GetAsync(apiUrl);
                 response.EnsureSuccessStatusCode();
 
-                List<Food> foodItems = new List<Food>();
+                UsdaResponse fromUsda = new UsdaResponse();
                 if (response.IsSuccessStatusCode)
                 {
                     string json = await response.Content.ReadAsStringAsync();
 
                     // Deserialize JSON into Food model
-                    foodItems = JsonSerializer.Deserialize<List<Food>>(json);
+                    fromUsda = JsonSerializer.Deserialize<UsdaResponse>(json);
                 }
                 else
                 {
                     Console.WriteLine($"Error: {response.StatusCode} - {response.ReasonPhrase}");
                 }
 
-                return foodItems;
+                return fromUsda.Foods.FirstOrDefault();
             }
         }
         catch (Exception e)

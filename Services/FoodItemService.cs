@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Nutrition.Context;
 using Nutrition.Entities;
+using Nutrition.Models;
 using Nutrition.Requesters;
 
 public class FoodItemService : IFoodItemService
@@ -15,41 +16,12 @@ public class FoodItemService : IFoodItemService
         _usdaRequester = usdaRequester;
     }
 
-    public async Task<List<FoodItemDto>> GetFoodItemsFromUsda(string foodItem)
+    public async Task<FoodDto> GetFoodItemsFromUsda(string foodItem)
     {
         _foodItem = foodItem;
 
         var results = await _usdaRequester.Invoke(_foodItem);
 
         return results;
-    }
-
-    public FoodItemDto GetFoodItemDetails(string foodItem)
-    {
-        // Assume that Food and FoodNutrient are EF entities
-        var foodItemEntity = _context.FoodItems
-            .Include(f => f.FoodNutrients)
-            .FirstOrDefault(f => f.Description == foodItem);
-
-        if (foodItemEntity == null)
-        {
-            // Food item not found in the database
-            // You may want to handle this case based on your application logic
-            return null;
-        }
-
-        // Map EF entities to DTOs (Data Transfer Objects) or use them directly in the UI
-        var foodItemDto = new FoodItemDto
-        {
-            Description = foodItemEntity.Description,
-            Nutrients = foodItemEntity.FoodNutrients.Select(n => new NutrientDto
-            {
-                Name = n.NutrientName,
-                Value = n.Value,
-                Unit = n.UnitName
-            }).ToList()
-        };
-
-        return foodItemDto;
     }
 }

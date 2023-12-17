@@ -22,7 +22,7 @@ namespace Nutrition
             // Add new lines of code here to register any interfaces and concrete services you create
             services.AddTransient<IMainService, MainService>();
             services.AddTransient<IFoodItemService, FoodItemService>();
-            services.AddTransient<IFoodItemMapper, FoodItemMapper>();
+            services.AddTransient<IFoodMapper, FoodMapper>();
             services.AddTransient<IUsdaRequester, UsdaRequester>();
             services.AddDbContextFactory<NutritionContext>();
             

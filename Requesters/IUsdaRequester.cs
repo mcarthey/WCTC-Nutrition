@@ -1,9 +1,9 @@
 ﻿using Nutrition.Entities;
+using Nutrition.Models;
 
 namespace Nutrition.Requesters;
 
 public interface IUsdaRequester
 {
-    Task<List<FoodItemDto>> Invoke(string searchString);
-    Task<List<Food>> GetFoodItemFromUsda();
+    Task<FoodDto> Invoke(string searchString);
 }

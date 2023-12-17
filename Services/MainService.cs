@@ -1,4 +1,5 @@
 ﻿using Microsoft.Extensions.Logging;
+using Nutrition.Models;
 
 public class MainService : IMainService
 {
@@ -16,26 +17,33 @@ public class MainService : IMainService
         Console.Write("Enter a food item: ");
         string foodItem = Console.ReadLine();
 
-        List<FoodItemDto> result;
-        try
+        var foodDto = await _foodItemService.GetFoodItemsFromUsda(foodItem);
+
+        // Output details to the console
+        PrintFoodDetails(foodDto);
+
+    }
+    static void PrintFoodDetails(FoodDto foodDto)
+    {
+        Console.WriteLine($"FDC ID: {foodDto.FdcId}");
+        Console.WriteLine($"Description: {foodDto.Description}");
+
+        Console.WriteLine("Nutrients:");
+        foreach (var nutrient in foodDto.FoodNutrients)
         {
-             result = await _foodItemService.GetFoodItemsFromUsda(foodItem);
-        }
-        catch (Exception e)
-        {
-            _logger.Log(LogLevel.Critical, e, "An error occurred");
-            Console.WriteLine(e);
-            throw;
+            Console.WriteLine($"  Nutrient ID: {nutrient.NutrientId}");
+            Console.WriteLine($"  Nutrient Name: {nutrient.NutrientName}");
+            // Print other nutrient properties
         }
 
-        foreach (var item in result)
+        Console.WriteLine("Measures:");
+        foreach (var measure in foodDto.FoodMeasures)
         {
-            Console.WriteLine($"Food Item: {item.Description}");
-            Console.WriteLine("Nutrients:");
-            foreach (var nutrient in item.Nutrients)
-            {
-                Console.WriteLine($"- {nutrient.Name}: {nutrient.Unit} {nutrient.Value}");
-            }
+            Console.WriteLine($"  Dissemination Text: {measure.DisseminationText}");
+            Console.WriteLine($"  Gram Weight: {measure.GramWeight}");
+            // Print other measure properties
         }
+
+        // Print other properties as needed
     }
 }
