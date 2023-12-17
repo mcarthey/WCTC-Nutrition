@@ -12,11 +12,13 @@ public class UsdaRequester : IUsdaRequester
     public const string ApiKey = "wlqWiro71mqm7HP0zOed2gNaE4QTbe83KcAPDvTH";
     private string _searchString;
     private readonly IFoodMapper _foodMapper;
+    private readonly IHttpClientFactory _httpClientFactory;
     private readonly ILogger<UsdaRequester> _logger;
 
-    public UsdaRequester(IFoodMapper foodMapper, ILogger<UsdaRequester> logger)
+    public UsdaRequester(IFoodMapper foodMapper, IHttpClientFactory httpClientFactory, ILogger<UsdaRequester> logger)
     {
         _foodMapper = foodMapper;
+        _httpClientFactory = httpClientFactory;
         _logger = logger;
     }
 
@@ -38,13 +40,10 @@ public class UsdaRequester : IUsdaRequester
 
         try
         {
-            using (HttpClient client = new HttpClient())
+            using (HttpClient client = _httpClientFactory.CreateClient("UsdaHttpClient"))
             {
-                client.Timeout = TimeSpan.FromSeconds(30); // Set a 30-second timeout (adjust as needed)
-                client.DefaultRequestHeaders.Host = "api.nal.usda.gov";
 
                 HttpResponseMessage response = await client.GetAsync(apiUrl);
-                response.EnsureSuccessStatusCode();
 
                 UsdaResponse usdaResponse = new UsdaResponse();
                 if (response.IsSuccessStatusCode)
@@ -53,7 +52,6 @@ public class UsdaRequester : IUsdaRequester
 
                     // Deserialize JSON into Food model
                     usdaResponse = UsdaResponse.FromJson(json);
-                    //usdaResponse = JsonSerializer.Deserialize<UsdaResponse>(json);
                 }
                 else
                 {

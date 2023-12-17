@@ -19,6 +19,14 @@ namespace Nutrition
                 builder.AddFile("app.log");
             });
 
+            services.AddHttpClient("UsdaHttpClient", client =>
+            {
+                client.BaseAddress = new Uri("https://api.example.com/");
+                client.Timeout = TimeSpan.FromSeconds(30); // Set a 30-second timeout (adjust as needed)
+                client.DefaultRequestHeaders.Host = "api.nal.usda.gov";
+                // Additional configuration...
+            });
+
             // Add new lines of code here to register any interfaces and concrete services you create
             services.AddTransient<IMainService, MainService>();
             services.AddTransient<IFoodItemService, FoodItemService>();
