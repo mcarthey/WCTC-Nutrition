@@ -1,24 +1,26 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Newtonsoft.Json;
+using System.ComponentModel.DataAnnotations;
 
 namespace Nutrition.Entities
 {
     public class Food
     {
+        [JsonProperty("fdcId")]
         public int FdcId { get; set; }
-        public string Description { get; set; }
-        public string CommonNames { get; set; }
-        public string AdditionalDescriptions { get; set; }
-        public string DataType { get; set; }
-        public int FoodCode { get; set; }
-        public string PublishedDate { get; set; }
-        public string FoodCategory { get; set; }
-        public int FoodCategoryId { get; set; }
-        public double Score { get; set; }
-        public List<FoodNutrient> FoodNutrients { get; set; }
-        public List<FoodMeasure> FoodMeasures { get; set; }
-        // Add other properties as needed
 
-        // You may want to include other nested classes like FoodNutrient, FoodMeasure, etc.
+        [JsonProperty("description")]
+        public string Description { get; set; }
+
+        [JsonProperty("commonNames")]
+        public string CommonNames { get; set; }
+
+        [JsonProperty("foodNutrients")]
+        public List<FoodNutrient> FoodNutrients { get; set; }
+
+        [JsonProperty("foodMeasures")]
+        public List<FoodMeasure> FoodMeasures { get; set; }
+
+        // Add other properties as needed
     }
 
 
