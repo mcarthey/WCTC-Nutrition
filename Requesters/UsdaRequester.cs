@@ -46,20 +46,21 @@ public class UsdaRequester : IUsdaRequester
                 HttpResponseMessage response = await client.GetAsync(apiUrl);
                 response.EnsureSuccessStatusCode();
 
-                UsdaResponse fromUsda = new UsdaResponse();
+                UsdaResponse usdaResponse = new UsdaResponse();
                 if (response.IsSuccessStatusCode)
                 {
                     string json = await response.Content.ReadAsStringAsync();
 
                     // Deserialize JSON into Food model
-                    fromUsda = JsonSerializer.Deserialize<UsdaResponse>(json);
+                    usdaResponse = UsdaResponse.FromJson(json);
+                    //usdaResponse = JsonSerializer.Deserialize<UsdaResponse>(json);
                 }
                 else
                 {
                     Console.WriteLine($"Error: {response.StatusCode} - {response.ReasonPhrase}");
                 }
 
-                return fromUsda.Foods.FirstOrDefault();
+                return usdaResponse.Foods.FirstOrDefault();
             }
         }
         catch (Exception e)

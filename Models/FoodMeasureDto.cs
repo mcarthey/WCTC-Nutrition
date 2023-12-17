@@ -1,8 +1,15 @@
-﻿namespace Nutrition.Models;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
-public class FoodMeasureDto
+namespace Nutrition.Models
 {
-    public string DisseminationText { get; set; }
-    public double GramWeight { get; set; }
-    // Add other properties as needed
+    public class FoodMeasureDto
+    {
+        public string DisseminationText { get; set; }
+        public double GramWeight { get; set; }
+        // Add other properties as needed
+    }
 }

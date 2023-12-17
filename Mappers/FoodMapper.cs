@@ -36,6 +36,9 @@ namespace Nutrition.Mappers
             {
                 NutrientId = nutrient.NutrientId,
                 NutrientName = nutrient.NutrientName,
+                NutrientUnit = nutrient.UnitName,
+                NutrientValue = nutrient.Value
+
                 // Map other properties
             }).ToList();
         }

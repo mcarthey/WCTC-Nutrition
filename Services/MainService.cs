@@ -31,8 +31,8 @@ public class MainService : IMainService
         Console.WriteLine("Nutrients:");
         foreach (var nutrient in foodDto.FoodNutrients)
         {
-            Console.WriteLine($"  Nutrient ID: {nutrient.NutrientId}");
-            Console.WriteLine($"  Nutrient Name: {nutrient.NutrientName}");
+            Console.Write($"  ({nutrient.NutrientId})");
+            Console.WriteLine($" {nutrient.NutrientName} {nutrient.NutrientValue} {nutrient.NutrientUnit}");
             // Print other nutrient properties
         }
 

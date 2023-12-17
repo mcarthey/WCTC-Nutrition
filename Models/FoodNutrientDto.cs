@@ -1,8 +1,20 @@
-﻿namespace Nutrition.Models;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using Nutrition.Entities;
 
-public class FoodNutrientDto
+namespace Nutrition.Models
 {
-    public int NutrientId { get; set; }
-    public string NutrientName { get; set; }
-    // Add other properties as needed
+    public class FoodNutrientDto
+    {
+        public long NutrientId { get; set; }
+        public string NutrientName { get; set; }
+
+        public UnitName NutrientUnit { get; set; }
+
+        public double NutrientValue { get; set; }
+        // Add other properties as needed
+    }
 }
