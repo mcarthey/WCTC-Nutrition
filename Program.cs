@@ -4,12 +4,15 @@ using System;
 using Nutrition.Context;
 using Nutrition;
 using Microsoft.Extensions.Logging;
+using Microsoft.EntityFrameworkCore.Metadata;
+using Nutrition.Entities;
+using System.Text.Json;
 
 public class Program
 {
     private static IServiceProvider _serviceProvider;
 
-    static void Main()
+    static async Task Main()
     {
         // Setup DI container
         var startup = new Startup();
@@ -22,7 +25,8 @@ public class Program
         var mainService = _serviceProvider.GetService<IMainService>();
 
         // Invoke the application
-        mainService?.Invoke();
+        await mainService?.Invoke();
+
     }
 
     private static void UnhandledExceptionHandler(object sender, UnhandledExceptionEventArgs e)

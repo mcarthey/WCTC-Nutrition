@@ -7,6 +7,6 @@ public class PlanItem
     public int FoodItemId { get; set; }
 
     // Navigation properties
-    public FoodItem FoodItem { get; set; }
+    public Food Food { get; set; }
     public MealPlan MealPlan { get; set; }
 }

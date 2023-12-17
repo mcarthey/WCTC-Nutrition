@@ -6,9 +6,9 @@ namespace Nutrition.Context
 {
     public class NutritionContext : DbContext
     {
-        // Add DbSet properties for your entities (FoodItem, Nutrient, etc.)
-        public DbSet<FoodItem> FoodItems { get; set; }
-        public DbSet<Nutrient> Nutrients { get; set; }
+        // Add DbSet properties for your entities (Food, FoodNutrient, etc.)
+        public DbSet<Food> FoodItems { get; set; }
+        public DbSet<FoodNutrient> Nutrients { get; set; }
 
         public NutritionContext()
         {

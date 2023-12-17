@@ -1,4 +1,6 @@
-﻿using System.Text.Json;
+﻿using System.Net.Http;
+using System.Text.Json;
+using Microsoft.Extensions.Logging;
 using Nutrition.Entities;
 using Nutrition.Mappers;
 
@@ -9,10 +11,12 @@ public class UsdaRequester : IUsdaRequester
     public const string ApiKey = "wlqWiro71mqm7HP0zOed2gNaE4QTbe83KcAPDvTH";
     private string _searchString;
     private readonly IFoodItemMapper _foodItemMapper;
+    private readonly ILogger<UsdaRequester> _logger;
 
-    public UsdaRequester(IFoodItemMapper foodItemMapper)
+    public UsdaRequester(IFoodItemMapper foodItemMapper, ILogger<UsdaRequester> logger)
     {
         _foodItemMapper = foodItemMapper;
+        _logger = logger;
     }
 
     public async Task<List<FoodItemDto>> Invoke(string searchString)
@@ -30,29 +34,42 @@ public class UsdaRequester : IUsdaRequester
         return foodItemDtos;
     }
 
-    public async Task<List<FoodItem>> GetFoodItemFromUsda()
+    public async Task<List<Food>> GetFoodItemFromUsda()
     {
         // Replace "YOUR_API_KEY" with your actual API key from the USDA FoodData Central API.
         string apiUrl = $"https://api.nal.usda.gov/fdc/v1/foods/search?query={_searchString}&api_key={ApiKey}";
 
-        using (HttpClient client = new HttpClient())
+        try
         {
-            HttpResponseMessage response = await client.GetAsync(apiUrl);
-
-            List<FoodItem> foodItems = new List<FoodItem>();
-            if (response.IsSuccessStatusCode)
+            using (HttpClient client = new HttpClient())
             {
-                string json = await response.Content.ReadAsStringAsync();
+                client.Timeout = TimeSpan.FromSeconds(30); // Set a 30-second timeout (adjust as needed)
+                client.DefaultRequestHeaders.Host = "api.nal.usda.gov";
 
-                // Deserialize JSON into FoodItem model
-                foodItems = JsonSerializer.Deserialize<List<FoodItem>>(json);
-            }
-            else
-            {
-                Console.WriteLine($"Error: {response.StatusCode} - {response.ReasonPhrase}");
-            }
+                HttpResponseMessage response = await client.GetAsync(apiUrl);
+                response.EnsureSuccessStatusCode();
 
-            return foodItems;
+                List<Food> foodItems = new List<Food>();
+                if (response.IsSuccessStatusCode)
+                {
+                    string json = await response.Content.ReadAsStringAsync();
+
+                    // Deserialize JSON into Food model
+                    foodItems = JsonSerializer.Deserialize<List<Food>>(json);
+                }
+                else
+                {
+                    Console.WriteLine($"Error: {response.StatusCode} - {response.ReasonPhrase}");
+                }
+
+                return foodItems;
+            }
+        }
+        catch (Exception e)
+        {
+            _logger.Log(LogLevel.Critical, e, "An error occurred");
+            Console.WriteLine(e);
+            throw;
         }
     }
 }

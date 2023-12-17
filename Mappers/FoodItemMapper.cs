@@ -4,14 +4,14 @@ namespace Nutrition.Mappers
 {
     public class FoodItemMapper : IFoodItemMapper
     {
-        public FoodItemDto Map(FoodItem foodItem)
+        public FoodItemDto Map(Food food)
         {
             return new FoodItemDto
             {
-                Description = foodItem.Description,
-                Nutrients = foodItem.Nutrients.Select(n => new NutrientDto
+                Description = food.Description,
+                Nutrients = food.FoodNutrients.Select(n => new NutrientDto
                 {
-                    Name = n.Name
+                    Name = n.NutrientName
                 }).ToList()
             };
         }

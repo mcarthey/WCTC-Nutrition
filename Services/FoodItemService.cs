@@ -26,9 +26,9 @@ public class FoodItemService : IFoodItemService
 
     public FoodItemDto GetFoodItemDetails(string foodItem)
     {
-        // Assume that FoodItem and Nutrient are EF entities
+        // Assume that Food and FoodNutrient are EF entities
         var foodItemEntity = _context.FoodItems
-            .Include(f => f.Nutrients)
+            .Include(f => f.FoodNutrients)
             .FirstOrDefault(f => f.Description == foodItem);
 
         if (foodItemEntity == null)
@@ -42,11 +42,11 @@ public class FoodItemService : IFoodItemService
         var foodItemDto = new FoodItemDto
         {
             Description = foodItemEntity.Description,
-            Nutrients = foodItemEntity.Nutrients.Select(n => new NutrientDto
+            Nutrients = foodItemEntity.FoodNutrients.Select(n => new NutrientDto
             {
-                Name = n.Name,
-                Value = n.Amount,
-                Unit = n.NutrientId.ToString()
+                Name = n.NutrientName,
+                Value = n.Value,
+                Unit = n.UnitName
             }).ToList()
         };
 
