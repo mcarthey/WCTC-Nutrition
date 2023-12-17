@@ -1,4 +1,6 @@
-﻿using Microsoft.Extensions.Logging;
+﻿using System.Threading.Channels;
+using Microsoft.Extensions.Logging;
+using Nutrition.Helpers;
 using Nutrition.Models;
 
 public class MainService : IMainService
@@ -14,13 +16,20 @@ public class MainService : IMainService
 
     public async Task Invoke()
     {
-        Console.Write("Enter a food item: ");
+        ConsoleHelper.WriteLineWithColor("An empty search value will exit", ConsoleColor.DarkBlue);
+        ConsoleHelper.WriteLineWithColor("Enter a food item: ", ConsoleColor.DarkGreen);
         string foodItem = Console.ReadLine();
 
-        var foodDto = await _foodItemService.GetFoodItemsFromUsda(foodItem);
+        while (!string.IsNullOrWhiteSpace(foodItem))
+        {
+            var foodDto = await _foodItemService.GetFoodItemsFromUsda(foodItem);
 
-        // Output details to the console
-        PrintFoodDetails(foodDto);
+            // Output details to the console
+            PrintFoodDetails(foodDto);
+
+            ConsoleHelper.WriteLineWithColor("Enter a food item: ", ConsoleColor.DarkGreen);
+            foodItem = Console.ReadLine();
+        }
 
     }
     static void PrintFoodDetails(FoodDto foodDto)
@@ -45,5 +54,8 @@ public class MainService : IMainService
         }
 
         // Print other properties as needed
+        Console.WriteLine();
     }
+
+
 }

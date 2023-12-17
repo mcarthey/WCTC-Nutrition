@@ -1,7 +1,9 @@
 ﻿using System.Net.Http;
 using System.Text.Json;
+using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.Logging;
 using Nutrition.Entities;
+using Nutrition.Helpers;
 using Nutrition.Mappers;
 using Nutrition.Models;
 
@@ -14,12 +16,15 @@ public class UsdaRequester : IUsdaRequester
     private readonly IFoodMapper _foodMapper;
     private readonly IHttpClientFactory _httpClientFactory;
     private readonly ILogger<UsdaRequester> _logger;
+    private readonly MemoryCache _responseCache;
 
     public UsdaRequester(IFoodMapper foodMapper, IHttpClientFactory httpClientFactory, ILogger<UsdaRequester> logger)
     {
         _foodMapper = foodMapper;
         _httpClientFactory = httpClientFactory;
         _logger = logger;
+
+        _responseCache = new MemoryCache(new MemoryCacheOptions());
     }
 
     public async Task<FoodDto> Invoke(string searchString)
@@ -35,6 +40,13 @@ public class UsdaRequester : IUsdaRequester
 
     private async Task<Food> GetFoodFromUsda()
     {
+
+        if (_responseCache.TryGetValue(_searchString, out var cachedResponse) && cachedResponse is Task<Food> taskResponse)
+        {
+            ConsoleHelper.WriteLineWithColor("Response retrieved from cache", ConsoleColor.DarkYellow);
+            return await taskResponse; // Await the cached task
+        }
+
         // Replace "YOUR_API_KEY" with your actual API key from the USDA FoodData Central API.
         string apiUrl = $"https://api.nal.usda.gov/fdc/v1/foods/search?query={_searchString}&api_key={ApiKey}";
 
@@ -58,7 +70,15 @@ public class UsdaRequester : IUsdaRequester
                     Console.WriteLine($"Error: {response.StatusCode} - {response.ReasonPhrase}");
                 }
 
-                return usdaResponse.Foods.FirstOrDefault();
+                var food = usdaResponse.Foods.FirstOrDefault();
+
+                // Cache the response for future use
+                _responseCache.Set(_searchString, Task.FromResult(food), new MemoryCacheEntryOptions
+                {
+                    AbsoluteExpirationRelativeToNow = TimeSpan.FromMinutes(10) // Set an absolute expiration time
+                });
+
+                return food;
             }
         }
         catch (Exception e)
