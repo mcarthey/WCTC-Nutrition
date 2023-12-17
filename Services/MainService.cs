@@ -7,18 +7,21 @@
         _foodItemService = foodItemService ?? throw new ArgumentNullException(nameof(foodItemService));
     }
 
-    public void Invoke()
+    public async Task Invoke()
     {
         Console.Write("Enter a food item: ");
         string foodItem = Console.ReadLine();
 
-        var result = _foodItemService.GetFoodItemDetails(foodItem);
+        var result = await _foodItemService.GetFoodItemsFromUsda(foodItem);
 
-        Console.WriteLine($"Food Item: {result.Description}");
-        Console.WriteLine("Nutrients:");
-        foreach (var nutrient in result.Nutrients)
+        foreach (var item in result)
         {
-            Console.WriteLine($"- {nutrient.Name}: {nutrient.Value} {nutrient.Unit}");
+            Console.WriteLine($"Food Item: {item.Description}");
+            Console.WriteLine("Nutrients:");
+            foreach (var nutrient in item.Nutrients)
+            {
+                Console.WriteLine($"- {nutrient.Name}: {nutrient.Unit} {nutrient.Value}");
+            }
         }
     }
 }

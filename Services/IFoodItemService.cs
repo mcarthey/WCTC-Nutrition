@@ -2,5 +2,6 @@
 
 public interface IFoodItemService
 {
-    FoodItem GetFoodItemDetails(string foodItem);
+    FoodItemDto GetFoodItemDetails(string foodItem);
+    Task<List<FoodItemDto>> GetFoodItemsFromUsda(string foodItem);
 }

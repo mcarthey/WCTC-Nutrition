@@ -2,7 +2,7 @@
 
 public class MealPlan
 {
-    public int PlanId { get; set; }
+    public int MealPlanId { get; set; }
     public int UserId { get; set; }
 
     // Navigation property

@@ -4,7 +4,6 @@ namespace Nutrition.Entities
 {
     public class FoodItem
     {
-        [Key]
         public int FoodItemId { get; set; } // Primary key
         public string Description { get; set; }
 

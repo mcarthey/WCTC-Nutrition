@@ -1,4 +1,4 @@
 ﻿public interface IMainService
 {
-    void Invoke();
+    Task Invoke();
 }
