@@ -3,6 +3,7 @@ using Microsoft.Extensions.Logging;
 using Nutrition.Context;
 using Nutrition.Mappers;
 using Nutrition.Requesters;
+using Nutrition.Services;
 
 namespace Nutrition;
 
@@ -30,6 +31,7 @@ public class Startup
         services.AddTransient<IMainService, MainService>();
         services.AddTransient<IFoodItemService, FoodItemService>();
         services.AddTransient<IFoodMapper, FoodMapper>();
+        services.AddTransient<IAuthenticationService, AuthenticationService>();
         services.AddTransient<IUsdaRequester, UsdaRequester>();
         services.AddDbContextFactory<NutritionContext>();
 

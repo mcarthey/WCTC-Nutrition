@@ -1,20 +1,26 @@
 ﻿using Microsoft.Extensions.Logging;
 using Nutrition.Helpers;
 using Nutrition.Models;
+using Nutrition.Services;
 
 public class MainService : IMainService
 {
     private readonly IFoodItemService _foodItemService;
+    private readonly IAuthenticationService _authenticationService;
     private readonly ILogger<MainService> _logger;
 
-    public MainService(IFoodItemService foodItemService, ILogger<MainService> logger)
+    public MainService(IFoodItemService foodItemService, IAuthenticationService authenticationService, ILogger<MainService> logger)
     {
         _foodItemService = foodItemService ?? throw new ArgumentNullException(nameof(foodItemService));
+        _authenticationService = authenticationService;
         _logger = logger;
     }
 
     public async Task Invoke()
     {
+        // Authenticate User before moving on in the application
+        _authenticationService.Invoke();
+
         ConsoleHelper.WriteLineWithColor("An empty search value will exit", ConsoleColor.DarkBlue);
         ConsoleHelper.WriteLineWithColor("Enter a food item: ", ConsoleColor.DarkGreen);
         var foodItem = Console.ReadLine();
