@@ -26,6 +26,7 @@ public class MainService : IMainService
             // Output details to the console
             PrintFoodDetails(foodDto);
 
+            ConsoleHelper.WriteLineWithColor("An empty search value will exit", ConsoleColor.DarkBlue);
             ConsoleHelper.WriteLineWithColor("Enter a food item: ", ConsoleColor.DarkGreen);
             foodItem = Console.ReadLine();
         }

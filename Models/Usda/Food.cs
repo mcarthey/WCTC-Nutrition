@@ -58,6 +58,12 @@ namespace Nutrition.Entities
 
         [JsonProperty("Survey (FNDDS)")]
         public virtual long SurveyFndds { get; set; }
+
+        [JsonProperty("Foundation")]
+        public virtual long Foundation { get; set; }
+
+        [JsonProperty("Experimental")]
+        public virtual long Experimental { get; set; }
     }
 
     public partial class Nutrients
@@ -93,26 +99,47 @@ namespace Nutrition.Entities
         [JsonProperty("description")]
         public virtual string Description { get; set; }
 
-        [JsonProperty("commonNames", NullValueHandling = NullValueHandling.Ignore)]
-        public virtual string CommonNames { get; set; }
-
-        [JsonProperty("additionalDescriptions", NullValueHandling = NullValueHandling.Ignore)]
-        public virtual string AdditionalDescriptions { get; set; }
-
         [JsonProperty("dataType")]
-        public virtual DataTypeEnum DataType { get; set; }
+        public virtual string DataType { get; set; }
 
-        [JsonProperty("foodCode", NullValueHandling = NullValueHandling.Ignore)]
-        public virtual long? FoodCode { get; set; }
+        [JsonProperty("gtinUpc", NullValueHandling = NullValueHandling.Ignore)]
+        public virtual string GtinUpc { get; set; }
 
         [JsonProperty("publishedDate")]
         public virtual DateTimeOffset PublishedDate { get; set; }
 
+        [JsonProperty("brandOwner", NullValueHandling = NullValueHandling.Ignore)]
+        public virtual string BrandOwner { get; set; }
+
+        [JsonProperty("brandName", NullValueHandling = NullValueHandling.Ignore)]
+        public virtual string BrandName { get; set; }
+
+        [JsonProperty("ingredients", NullValueHandling = NullValueHandling.Ignore)]
+        public virtual string Ingredients { get; set; }
+
+        [JsonProperty("marketCountry", NullValueHandling = NullValueHandling.Ignore)]
+        public virtual string? MarketCountry { get; set; }
+
         [JsonProperty("foodCategory")]
         public virtual string FoodCategory { get; set; }
 
-        [JsonProperty("foodCategoryId", NullValueHandling = NullValueHandling.Ignore)]
-        public virtual long? FoodCategoryId { get; set; }
+        [JsonProperty("modifiedDate", NullValueHandling = NullValueHandling.Ignore)]
+        public virtual DateTimeOffset? ModifiedDate { get; set; }
+
+        [JsonProperty("dataSource", NullValueHandling = NullValueHandling.Ignore)]
+        public virtual string? DataSource { get; set; }
+
+        [JsonProperty("packageWeight", NullValueHandling = NullValueHandling.Ignore)]
+        public virtual string PackageWeight { get; set; }
+
+        [JsonProperty("servingSizeUnit", NullValueHandling = NullValueHandling.Ignore)]
+        public virtual string? ServingSizeUnit { get; set; }
+
+        [JsonProperty("servingSize", NullValueHandling = NullValueHandling.Ignore)]
+        public virtual long? ServingSize { get; set; }
+
+        [JsonProperty("tradeChannels", NullValueHandling = NullValueHandling.Ignore)]
+        public virtual List<string> TradeChannels { get; set; }
 
         [JsonProperty("allHighlightFields")]
         public virtual string AllHighlightFields { get; set; }
@@ -141,53 +168,26 @@ namespace Nutrition.Entities
         [JsonProperty("foodVersionIds")]
         public virtual List<object> FoodVersionIds { get; set; }
 
-        [JsonProperty("ndbNumber", NullValueHandling = NullValueHandling.Ignore)]
-        public virtual long? NdbNumber { get; set; }
-
-        [JsonProperty("scientificName", NullValueHandling = NullValueHandling.Ignore)]
-        public virtual string ScientificName { get; set; }
-
-        [JsonProperty("gtinUpc", NullValueHandling = NullValueHandling.Ignore)]
-        public virtual string GtinUpc { get; set; }
-
-        [JsonProperty("brandOwner", NullValueHandling = NullValueHandling.Ignore)]
-        public virtual string BrandOwner { get; set; }
-
-        [JsonProperty("brandName", NullValueHandling = NullValueHandling.Ignore)]
-        public virtual string BrandName { get; set; }
-
-        [JsonProperty("ingredients", NullValueHandling = NullValueHandling.Ignore)]
-        public virtual string Ingredients { get; set; }
-
-        [JsonProperty("marketCountry", NullValueHandling = NullValueHandling.Ignore)]
-        public virtual MarketCountry? MarketCountry { get; set; }
-
-        [JsonProperty("modifiedDate", NullValueHandling = NullValueHandling.Ignore)]
-        public virtual DateTimeOffset? ModifiedDate { get; set; }
-
-        [JsonProperty("dataSource", NullValueHandling = NullValueHandling.Ignore)]
-        public virtual DataSource? DataSource { get; set; }
-
-        [JsonProperty("packageWeight", NullValueHandling = NullValueHandling.Ignore)]
-        public virtual string PackageWeight { get; set; }
-
-        [JsonProperty("servingSizeUnit", NullValueHandling = NullValueHandling.Ignore)]
-        public virtual string ServingSizeUnit { get; set; }
-
-        [JsonProperty("servingSize", NullValueHandling = NullValueHandling.Ignore)]
-        public virtual double? ServingSize { get; set; }
-
-        [JsonProperty("tradeChannels", NullValueHandling = NullValueHandling.Ignore)]
-        public virtual List<TradeChannel> TradeChannels { get; set; }
-
         [JsonProperty("householdServingFullText", NullValueHandling = NullValueHandling.Ignore)]
         public virtual string HouseholdServingFullText { get; set; }
 
         [JsonProperty("shortDescription", NullValueHandling = NullValueHandling.Ignore)]
         public virtual string ShortDescription { get; set; }
 
-        [JsonProperty("subbrandName", NullValueHandling = NullValueHandling.Ignore)]
-        public virtual string SubbrandName { get; set; }
+        [JsonProperty("commonNames", NullValueHandling = NullValueHandling.Ignore)]
+        public virtual string CommonNames { get; set; }
+
+        [JsonProperty("additionalDescriptions", NullValueHandling = NullValueHandling.Ignore)]
+        public virtual string AdditionalDescriptions { get; set; }
+
+        [JsonProperty("foodCode", NullValueHandling = NullValueHandling.Ignore)]
+        public virtual long? FoodCode { get; set; }
+
+        [JsonProperty("foodCategoryId", NullValueHandling = NullValueHandling.Ignore)]
+        public virtual long? FoodCategoryId { get; set; }
+
+        [JsonProperty("ndbNumber", NullValueHandling = NullValueHandling.Ignore)]
+        public virtual long? NdbNumber { get; set; }
     }
 
     public partial class FinalFoodInputFood
@@ -196,13 +196,12 @@ namespace Nutrition.Entities
         public virtual string FoodDescription { get; set; }
 
         [JsonProperty("gramWeight")]
-        public virtual long GramWeight { get; set; }
+        public virtual double GramWeight { get; set; }
 
         [JsonProperty("id")]
         public virtual long Id { get; set; }
 
         [JsonProperty("portionCode")]
-        [JsonConverter(typeof(ParseStringConverter))]
         public virtual long PortionCode { get; set; }
 
         [JsonProperty("portionDescription")]
@@ -218,7 +217,7 @@ namespace Nutrition.Entities
         public virtual long SrCode { get; set; }
 
         [JsonProperty("value")]
-        public virtual long Value { get; set; }
+        public virtual double Value { get; set; }
     }
 
     public partial class FoodAttributeType
@@ -242,10 +241,13 @@ namespace Nutrition.Entities
         public virtual string Value { get; set; }
 
         [JsonProperty("name", NullValueHandling = NullValueHandling.Ignore)]
-        public virtual string Name { get; set; }
+        public virtual string? Name { get; set; }
 
         [JsonProperty("id")]
         public virtual long Id { get; set; }
+
+        [JsonProperty("sequenceNumber", NullValueHandling = NullValueHandling.Ignore)]
+        public virtual long? SequenceNumber { get; set; }
     }
 
     public partial class FoodMeasure
@@ -254,13 +256,12 @@ namespace Nutrition.Entities
         public virtual string DisseminationText { get; set; }
 
         [JsonProperty("gramWeight")]
-        public virtual long GramWeight { get; set; }
+        public virtual double GramWeight { get; set; }
 
         [JsonProperty("id")]
         public virtual long Id { get; set; }
 
         [JsonProperty("modifier")]
-        [JsonConverter(typeof(ParseStringConverter))]
         public virtual long Modifier { get; set; }
 
         [JsonProperty("rank")]
@@ -285,14 +286,31 @@ namespace Nutrition.Entities
         public virtual string NutrientName { get; set; }
 
         [JsonProperty("nutrientNumber")]
-        [JsonConverter(typeof(ParseStringConverter))]
-        public virtual long NutrientNumber { get; set; }
+        public virtual double? NutrientNumber { get; set; }
 
         [JsonProperty("unitName")]
-        public virtual UnitName UnitName { get; set; }
+        public virtual string UnitName { get; set; }
+
+        [JsonProperty("derivationCode", NullValueHandling = NullValueHandling.Ignore)]
+        public virtual string? DerivationCode { get; set; }
+
+        [JsonProperty("derivationDescription", NullValueHandling = NullValueHandling.Ignore)]
+        public virtual string DerivationDescription { get; set; }
+
+        [JsonProperty("derivationId", NullValueHandling = NullValueHandling.Ignore)]
+        public virtual long? DerivationId { get; set; }
 
         [JsonProperty("value")]
         public virtual double Value { get; set; }
+
+        [JsonProperty("foodNutrientSourceId", NullValueHandling = NullValueHandling.Ignore)]
+        public virtual long? FoodNutrientSourceId { get; set; }
+
+        [JsonProperty("foodNutrientSourceCode", NullValueHandling = NullValueHandling.Ignore)]
+        public virtual long? FoodNutrientSourceCode { get; set; }
+
+        [JsonProperty("foodNutrientSourceDescription", NullValueHandling = NullValueHandling.Ignore)]
+        public virtual string? FoodNutrientSourceDescription { get; set; }
 
         [JsonProperty("rank")]
         public virtual long Rank { get; set; }
@@ -303,51 +321,46 @@ namespace Nutrition.Entities
         [JsonProperty("foodNutrientId")]
         public virtual long FoodNutrientId { get; set; }
 
+        [JsonProperty("percentDailyValue", NullValueHandling = NullValueHandling.Ignore)]
+        public virtual long? PercentDailyValue { get; set; }
+
         [JsonProperty("dataPoints", NullValueHandling = NullValueHandling.Ignore)]
         public virtual long? DataPoints { get; set; }
-
-        [JsonProperty("derivationCode", NullValueHandling = NullValueHandling.Ignore)]
-        public virtual DerivationCode? DerivationCode { get; set; }
-
-        [JsonProperty("derivationDescription", NullValueHandling = NullValueHandling.Ignore)]
-        public virtual string DerivationDescription { get; set; }
-
-        [JsonProperty("derivationId", NullValueHandling = NullValueHandling.Ignore)]
-        public virtual long? DerivationId { get; set; }
-
-        [JsonProperty("foodNutrientSourceId", NullValueHandling = NullValueHandling.Ignore)]
-        public virtual long? FoodNutrientSourceId { get; set; }
-
-        [JsonProperty("foodNutrientSourceCode", NullValueHandling = NullValueHandling.Ignore)]
-        [JsonConverter(typeof(ParseStringConverter))]
-        public virtual long? FoodNutrientSourceCode { get; set; }
-
-        [JsonProperty("foodNutrientSourceDescription", NullValueHandling = NullValueHandling.Ignore)]
-        public virtual FoodNutrientSourceDescription? FoodNutrientSourceDescription { get; set; }
 
         [JsonProperty("min", NullValueHandling = NullValueHandling.Ignore)]
         public virtual double? Min { get; set; }
 
         [JsonProperty("max", NullValueHandling = NullValueHandling.Ignore)]
         public virtual double? Max { get; set; }
-
-        [JsonProperty("percentDailyValue", NullValueHandling = NullValueHandling.Ignore)]
-        public virtual double? PercentDailyValue { get; set; }
     }
 
-    public enum DataSource { Li };
+    //public enum DataSource { Li };
 
-    public enum DataTypeEnum { Branded, SrLegacy, SurveyFndds };
+    //public enum DataTypeEnum { Branded, SrLegacy, SurveyFndds };
 
-    public enum DerivationCode { A, Bfzn, Cazn, Lccd, Lccs, Lcsl, Nc, Z };
+    //public enum PortionDescription { None, The1Can, The1Can1075OzUndiluted, The1Clove, The1Cup, The1Dash, The1Tablespoon, The1Teaspoon };
 
-    public enum FoodNutrientSourceDescription { AnalyticalOrDerivedFromAnalytical, AssumedZero, CalculatedOrImputed, ManufacturerSAnalyticalPartialDocumentation };
+    //public enum Unit { C, Cp, Empty, Gm, Lb, Tb, Ts };
 
-    public enum UnitName { G, Iu, KJ, Kcal, Mg, Ug };
+    //public enum Description { AdditionalDescriptionsForTheFood, AdjustmentsMadeToFoodsIncludingMoistureChanges, GenericAttributes };
 
-    public enum MarketCountry { UnitedStates };
+    //public enum FoodAttributeName { WweiaCategoryDescription, WweiaCategoryNumber };
 
-    public enum TradeChannel { NoTradeChannel };
+    //public enum FoodAttributeTypeName { AdditionalDescription, Adjustments, Attribute };
+
+    //public enum MeasureUnit { Undetermined };
+
+    //public enum DerivationCode { A, Bffn, Bfnn, Bfpn, Bfyn, Bfzn, Casn, Flc, Lc, Lccd, Lccs, Lcsl, Nc, Nr, O, T, Z };
+
+    //public enum FoodNutrientSourceDescription { AnalyticalOrDerivedFromAnalytical, AssumedZero, CalculatedFromNutrientLabelByNdl, CalculatedOrImputed, ManufacturerSAnalyticalPartialDocumentation };
+
+    //public enum UnitName { G, Iu, KJ, Kcal, Mg, Ug };
+
+    //public enum MarketCountry { UnitedStates };
+
+    //public enum ServingSizeUnit { G, Grm, Mg };
+
+    //public enum TradeChannel { NoTradeChannel };
 
     public partial class UsdaResponse
     {
@@ -367,377 +380,770 @@ namespace Nutrition.Entities
             DateParseHandling = DateParseHandling.None,
             Converters =
             {
-                DataSourceConverter.Singleton,
-                DataTypeEnumConverter.Singleton,
-                DerivationCodeConverter.Singleton,
-                FoodNutrientSourceDescriptionConverter.Singleton,
-                UnitNameConverter.Singleton,
-                MarketCountryConverter.Singleton,
-                TradeChannelConverter.Singleton,
                 new IsoDateTimeConverter { DateTimeStyles = DateTimeStyles.AssumeUniversal }
             },
         };
     }
 
-    internal class DataSourceConverter : JsonConverter
-    {
-        public override bool CanConvert(Type t) => t == typeof(DataSource) || t == typeof(DataSource?);
+    //internal class DataSourceConverter : JsonConverter
+    //{
+    //    public override bool CanConvert(Type t) => t == typeof(DataSource) || t == typeof(DataSource?);
 
-        public override object ReadJson(JsonReader reader, Type t, object existingValue, JsonSerializer serializer)
-        {
-            if (reader.TokenType == JsonToken.Null) return null;
-            var value = serializer.Deserialize<string>(reader);
-            if (value == "LI")
-            {
-                return DataSource.Li;
-            }
-            throw new Exception("Cannot unmarshal type DataSource");
-        }
+    //    public override object ReadJson(JsonReader reader, Type t, object existingValue, JsonSerializer serializer)
+    //    {
+    //        if (reader.TokenType == JsonToken.Null) return null;
+    //        var value = serializer.Deserialize<string>(reader);
+    //        if (value == "LI")
+    //        {
+    //            return DataSource.Li;
+    //        }
+    //        throw new Exception("Cannot unmarshal type DataSource");
+    //    }
 
-        public override void WriteJson(JsonWriter writer, object untypedValue, JsonSerializer serializer)
-        {
-            if (untypedValue == null)
-            {
-                serializer.Serialize(writer, null);
-                return;
-            }
-            var value = (DataSource)untypedValue;
-            if (value == DataSource.Li)
-            {
-                serializer.Serialize(writer, "LI");
-                return;
-            }
-            throw new Exception("Cannot marshal type DataSource");
-        }
+    //    public override void WriteJson(JsonWriter writer, object untypedValue, JsonSerializer serializer)
+    //    {
+    //        if (untypedValue == null)
+    //        {
+    //            serializer.Serialize(writer, null);
+    //            return;
+    //        }
+    //        var value = (DataSource)untypedValue;
+    //        if (value == DataSource.Li)
+    //        {
+    //            serializer.Serialize(writer, "LI");
+    //            return;
+    //        }
+    //        throw new Exception("Cannot marshal type DataSource");
+    //    }
 
-        public static readonly DataSourceConverter Singleton = new DataSourceConverter();
-    }
+    //    public static readonly DataSourceConverter Singleton = new DataSourceConverter();
+    //}
 
-    internal class DataTypeEnumConverter : JsonConverter
-    {
-        public override bool CanConvert(Type t) => t == typeof(DataTypeEnum) || t == typeof(DataTypeEnum?);
+    //internal class DataTypeEnumConverter : JsonConverter
+    //{
+    //    public override bool CanConvert(Type t) => t == typeof(DataTypeEnum) || t == typeof(DataTypeEnum?);
 
-        public override object ReadJson(JsonReader reader, Type t, object existingValue, JsonSerializer serializer)
-        {
-            if (reader.TokenType == JsonToken.Null) return null;
-            var value = serializer.Deserialize<string>(reader);
-            switch (value)
-            {
-                case "Branded":
-                    return DataTypeEnum.Branded;
-                case "SR Legacy":
-                    return DataTypeEnum.SrLegacy;
-                case "Survey (FNDDS)":
-                    return DataTypeEnum.SurveyFndds;
-            }
-            throw new Exception("Cannot unmarshal type DataTypeEnum");
-        }
+    //    public override object ReadJson(JsonReader reader, Type t, object existingValue, JsonSerializer serializer)
+    //    {
+    //        if (reader.TokenType == JsonToken.Null) return null;
+    //        var value = serializer.Deserialize<string>(reader);
+    //        switch (value)
+    //        {
+    //            case "Branded":
+    //                return DataTypeEnum.Branded;
+    //            case "SR Legacy":
+    //                return DataTypeEnum.SrLegacy;
+    //            case "Survey (FNDDS)":
+    //                return DataTypeEnum.SurveyFndds;
+    //        }
+    //        throw new Exception("Cannot unmarshal type DataTypeEnum");
+    //    }
 
-        public override void WriteJson(JsonWriter writer, object untypedValue, JsonSerializer serializer)
-        {
-            if (untypedValue == null)
-            {
-                serializer.Serialize(writer, null);
-                return;
-            }
-            var value = (DataTypeEnum)untypedValue;
-            switch (value)
-            {
-                case DataTypeEnum.Branded:
-                    serializer.Serialize(writer, "Branded");
-                    return;
-                case DataTypeEnum.SrLegacy:
-                    serializer.Serialize(writer, "SR Legacy");
-                    return;
-                case DataTypeEnum.SurveyFndds:
-                    serializer.Serialize(writer, "Survey (FNDDS)");
-                    return;
-            }
-            throw new Exception("Cannot marshal type DataTypeEnum");
-        }
+    //    public override void WriteJson(JsonWriter writer, object untypedValue, JsonSerializer serializer)
+    //    {
+    //        if (untypedValue == null)
+    //        {
+    //            serializer.Serialize(writer, null);
+    //            return;
+    //        }
+    //        var value = (DataTypeEnum)untypedValue;
+    //        switch (value)
+    //        {
+    //            case DataTypeEnum.Branded:
+    //                serializer.Serialize(writer, "Branded");
+    //                return;
+    //            case DataTypeEnum.SrLegacy:
+    //                serializer.Serialize(writer, "SR Legacy");
+    //                return;
+    //            case DataTypeEnum.SurveyFndds:
+    //                serializer.Serialize(writer, "Survey (FNDDS)");
+    //                return;
+    //        }
+    //        throw new Exception("Cannot marshal type DataTypeEnum");
+    //    }
 
-        public static readonly DataTypeEnumConverter Singleton = new DataTypeEnumConverter();
-    }
+    //    public static readonly DataTypeEnumConverter Singleton = new DataTypeEnumConverter();
+    //}
 
-    internal class ParseStringConverter : JsonConverter
-    {
-        public override bool CanConvert(Type t) => t == typeof(long) || t == typeof(long?);
+    //internal class ParseStringConverter : JsonConverter
+    //{
+    //    public override bool CanConvert(Type t) => t == typeof(long) || t == typeof(long?);
 
-        public override object ReadJson(JsonReader reader, Type t, object existingValue, JsonSerializer serializer)
-        {
-            if (reader.TokenType == JsonToken.Null) return null;
-            var value = serializer.Deserialize<string>(reader);
-            long l;
-            if (Int64.TryParse(value, out l))
-            {
-                return l;
-            }
-            throw new Exception("Cannot unmarshal type long");
-        }
+    //    public override object ReadJson(JsonReader reader, Type t, object existingValue, JsonSerializer serializer)
+    //    {
+    //        if (reader.TokenType == JsonToken.Null) return null;
+    //        var value = serializer.Deserialize<string>(reader);
+    //        long l;
+    //        if (Int64.TryParse(value, out l))
+    //        {
+    //            return l;
+    //        }
+    //        throw new Exception("Cannot unmarshal type long");
+    //    }
 
-        public override void WriteJson(JsonWriter writer, object untypedValue, JsonSerializer serializer)
-        {
-            if (untypedValue == null)
-            {
-                serializer.Serialize(writer, null);
-                return;
-            }
-            var value = (long)untypedValue;
-            serializer.Serialize(writer, value.ToString());
-            return;
-        }
+    //    public override void WriteJson(JsonWriter writer, object untypedValue, JsonSerializer serializer)
+    //    {
+    //        if (untypedValue == null)
+    //        {
+    //            serializer.Serialize(writer, null);
+    //            return;
+    //        }
+    //        var value = (long)untypedValue;
+    //        serializer.Serialize(writer, value.ToString());
+    //        return;
+    //    }
 
-        public static readonly ParseStringConverter Singleton = new ParseStringConverter();
-    }
+    //    public static readonly ParseStringConverter Singleton = new ParseStringConverter();
+    //}
 
-    internal class DerivationCodeConverter : JsonConverter
-    {
-        public override bool CanConvert(Type t) => t == typeof(DerivationCode) || t == typeof(DerivationCode?);
+    //internal class PortionDescriptionConverter : JsonConverter
+    //{
+    //    public override bool CanConvert(Type t) => t == typeof(PortionDescription) || t == typeof(PortionDescription?);
 
-        public override object ReadJson(JsonReader reader, Type t, object existingValue, JsonSerializer serializer)
-        {
-            if (reader.TokenType == JsonToken.Null) return null;
-            var value = serializer.Deserialize<string>(reader);
-            switch (value)
-            {
-                case "A":
-                    return DerivationCode.A;
-                case "BFZN":
-                    return DerivationCode.Bfzn;
-                case "CAZN":
-                    return DerivationCode.Cazn;
-                case "LCCD":
-                    return DerivationCode.Lccd;
-                case "LCCS":
-                    return DerivationCode.Lccs;
-                case "LCSL":
-                    return DerivationCode.Lcsl;
-                case "NC":
-                    return DerivationCode.Nc;
-                case "Z":
-                    return DerivationCode.Z;
-            }
-            throw new Exception("Cannot unmarshal type DerivationCode");
-        }
+    //    public override object ReadJson(JsonReader reader, Type t, object existingValue, JsonSerializer serializer)
+    //    {
+    //        if (reader.TokenType == JsonToken.Null) return null;
+    //        var value = serializer.Deserialize<string>(reader);
+    //        switch (value)
+    //        {
+    //            case "1 can":
+    //                return PortionDescription.The1Can;
+    //            case "1 can (10.75 oz), undiluted":
+    //                return PortionDescription.The1Can1075OzUndiluted;
+    //            case "1 clove":
+    //                return PortionDescription.The1Clove;
+    //            case "1 cup":
+    //                return PortionDescription.The1Cup;
+    //            case "1 dash":
+    //                return PortionDescription.The1Dash;
+    //            case "1 tablespoon":
+    //                return PortionDescription.The1Tablespoon;
+    //            case "1 teaspoon":
+    //                return PortionDescription.The1Teaspoon;
+    //            case "NONE":
+    //                return PortionDescription.None;
+    //        }
+    //        throw new Exception("Cannot unmarshal type PortionDescription");
+    //    }
 
-        public override void WriteJson(JsonWriter writer, object untypedValue, JsonSerializer serializer)
-        {
-            if (untypedValue == null)
-            {
-                serializer.Serialize(writer, null);
-                return;
-            }
-            var value = (DerivationCode)untypedValue;
-            switch (value)
-            {
-                case DerivationCode.A:
-                    serializer.Serialize(writer, "A");
-                    return;
-                case DerivationCode.Bfzn:
-                    serializer.Serialize(writer, "BFZN");
-                    return;
-                case DerivationCode.Cazn:
-                    serializer.Serialize(writer, "CAZN");
-                    return;
-                case DerivationCode.Lccd:
-                    serializer.Serialize(writer, "LCCD");
-                    return;
-                case DerivationCode.Lccs:
-                    serializer.Serialize(writer, "LCCS");
-                    return;
-                case DerivationCode.Lcsl:
-                    serializer.Serialize(writer, "LCSL");
-                    return;
-                case DerivationCode.Nc:
-                    serializer.Serialize(writer, "NC");
-                    return;
-                case DerivationCode.Z:
-                    serializer.Serialize(writer, "Z");
-                    return;
-            }
-            throw new Exception("Cannot marshal type DerivationCode");
-        }
+    //    public override void WriteJson(JsonWriter writer, object untypedValue, JsonSerializer serializer)
+    //    {
+    //        if (untypedValue == null)
+    //        {
+    //            serializer.Serialize(writer, null);
+    //            return;
+    //        }
+    //        var value = (PortionDescription)untypedValue;
+    //        switch (value)
+    //        {
+    //            case PortionDescription.The1Can:
+    //                serializer.Serialize(writer, "1 can");
+    //                return;
+    //            case PortionDescription.The1Can1075OzUndiluted:
+    //                serializer.Serialize(writer, "1 can (10.75 oz), undiluted");
+    //                return;
+    //            case PortionDescription.The1Clove:
+    //                serializer.Serialize(writer, "1 clove");
+    //                return;
+    //            case PortionDescription.The1Cup:
+    //                serializer.Serialize(writer, "1 cup");
+    //                return;
+    //            case PortionDescription.The1Dash:
+    //                serializer.Serialize(writer, "1 dash");
+    //                return;
+    //            case PortionDescription.The1Tablespoon:
+    //                serializer.Serialize(writer, "1 tablespoon");
+    //                return;
+    //            case PortionDescription.The1Teaspoon:
+    //                serializer.Serialize(writer, "1 teaspoon");
+    //                return;
+    //            case PortionDescription.None:
+    //                serializer.Serialize(writer, "NONE");
+    //                return;
+    //        }
+    //        throw new Exception("Cannot marshal type PortionDescription");
+    //    }
 
-        public static readonly DerivationCodeConverter Singleton = new DerivationCodeConverter();
-    }
+    //    public static readonly PortionDescriptionConverter Singleton = new PortionDescriptionConverter();
+    //}
 
-    internal class FoodNutrientSourceDescriptionConverter : JsonConverter
-    {
-        public override bool CanConvert(Type t) => t == typeof(FoodNutrientSourceDescription) || t == typeof(FoodNutrientSourceDescription?);
+    //internal class UnitConverter : JsonConverter
+    //{
+    //    public override bool CanConvert(Type t) => t == typeof(Unit) || t == typeof(Unit?);
 
-        public override object ReadJson(JsonReader reader, Type t, object existingValue, JsonSerializer serializer)
-        {
-            if (reader.TokenType == JsonToken.Null) return null;
-            var value = serializer.Deserialize<string>(reader);
-            switch (value)
-            {
-                case "Analytical or derived from analytical":
-                    return FoodNutrientSourceDescription.AnalyticalOrDerivedFromAnalytical;
-                case "Assumed zero":
-                    return FoodNutrientSourceDescription.AssumedZero;
-                case "Calculated or imputed":
-                    return FoodNutrientSourceDescription.CalculatedOrImputed;
-                case "Manufacturer's analytical; partial documentation":
-                    return FoodNutrientSourceDescription.ManufacturerSAnalyticalPartialDocumentation;
-            }
-            throw new Exception("Cannot unmarshal type FoodNutrientSourceDescription");
-        }
+    //    public override object ReadJson(JsonReader reader, Type t, object existingValue, JsonSerializer serializer)
+    //    {
+    //        if (reader.TokenType == JsonToken.Null) return null;
+    //        var value = serializer.Deserialize<string>(reader);
+    //        switch (value)
+    //        {
+    //            case "":
+    //                return Unit.Empty;
+    //            case "C":
+    //                return Unit.C;
+    //            case "CP":
+    //                return Unit.Cp;
+    //            case "GM":
+    //                return Unit.Gm;
+    //            case "LB":
+    //                return Unit.Lb;
+    //            case "TB":
+    //                return Unit.Tb;
+    //            case "TS":
+    //                return Unit.Ts;
+    //        }
+    //        throw new Exception("Cannot unmarshal type Unit");
+    //    }
 
-        public override void WriteJson(JsonWriter writer, object untypedValue, JsonSerializer serializer)
-        {
-            if (untypedValue == null)
-            {
-                serializer.Serialize(writer, null);
-                return;
-            }
-            var value = (FoodNutrientSourceDescription)untypedValue;
-            switch (value)
-            {
-                case FoodNutrientSourceDescription.AnalyticalOrDerivedFromAnalytical:
-                    serializer.Serialize(writer, "Analytical or derived from analytical");
-                    return;
-                case FoodNutrientSourceDescription.AssumedZero:
-                    serializer.Serialize(writer, "Assumed zero");
-                    return;
-                case FoodNutrientSourceDescription.CalculatedOrImputed:
-                    serializer.Serialize(writer, "Calculated or imputed");
-                    return;
-                case FoodNutrientSourceDescription.ManufacturerSAnalyticalPartialDocumentation:
-                    serializer.Serialize(writer, "Manufacturer's analytical; partial documentation");
-                    return;
-            }
-            throw new Exception("Cannot marshal type FoodNutrientSourceDescription");
-        }
+    //    public override void WriteJson(JsonWriter writer, object untypedValue, JsonSerializer serializer)
+    //    {
+    //        if (untypedValue == null)
+    //        {
+    //            serializer.Serialize(writer, null);
+    //            return;
+    //        }
+    //        var value = (Unit)untypedValue;
+    //        switch (value)
+    //        {
+    //            case Unit.Empty:
+    //                serializer.Serialize(writer, "");
+    //                return;
+    //            case Unit.C:
+    //                serializer.Serialize(writer, "C");
+    //                return;
+    //            case Unit.Cp:
+    //                serializer.Serialize(writer, "CP");
+    //                return;
+    //            case Unit.Gm:
+    //                serializer.Serialize(writer, "GM");
+    //                return;
+    //            case Unit.Lb:
+    //                serializer.Serialize(writer, "LB");
+    //                return;
+    //            case Unit.Tb:
+    //                serializer.Serialize(writer, "TB");
+    //                return;
+    //            case Unit.Ts:
+    //                serializer.Serialize(writer, "TS");
+    //                return;
+    //        }
+    //        throw new Exception("Cannot marshal type Unit");
+    //    }
 
-        public static readonly FoodNutrientSourceDescriptionConverter Singleton = new FoodNutrientSourceDescriptionConverter();
-    }
+    //    public static readonly UnitConverter Singleton = new UnitConverter();
+    //}
 
-    internal class UnitNameConverter : JsonConverter
-    {
-        public override bool CanConvert(Type t) => t == typeof(UnitName) || t == typeof(UnitName?);
+    //internal class DescriptionConverter : JsonConverter
+    //{
+    //    public override bool CanConvert(Type t) => t == typeof(Description) || t == typeof(Description?);
 
-        public override object ReadJson(JsonReader reader, Type t, object existingValue, JsonSerializer serializer)
-        {
-            if (reader.TokenType == JsonToken.Null) return null;
-            var value = serializer.Deserialize<string>(reader);
-            switch (value)
-            {
-                case "G":
-                    return UnitName.G;
-                case "IU":
-                    return UnitName.Iu;
-                case "KCAL":
-                    return UnitName.Kcal;
-                case "MG":
-                    return UnitName.Mg;
-                case "UG":
-                    return UnitName.Ug;
-                case "kJ":
-                    return UnitName.KJ;
-            }
-            throw new Exception("Cannot unmarshal type UnitName");
-        }
+    //    public override object ReadJson(JsonReader reader, Type t, object existingValue, JsonSerializer serializer)
+    //    {
+    //        if (reader.TokenType == JsonToken.Null) return null;
+    //        var value = serializer.Deserialize<string>(reader);
+    //        switch (value)
+    //        {
+    //            case "Additional descriptions for the food.":
+    //                return Description.AdditionalDescriptionsForTheFood;
+    //            case "Adjustments made to foods, including moisture changes":
+    //                return Description.AdjustmentsMadeToFoodsIncludingMoistureChanges;
+    //            case "Generic attributes":
+    //                return Description.GenericAttributes;
+    //        }
+    //        throw new Exception("Cannot unmarshal type Description");
+    //    }
 
-        public override void WriteJson(JsonWriter writer, object untypedValue, JsonSerializer serializer)
-        {
-            if (untypedValue == null)
-            {
-                serializer.Serialize(writer, null);
-                return;
-            }
-            var value = (UnitName)untypedValue;
-            switch (value)
-            {
-                case UnitName.G:
-                    serializer.Serialize(writer, "G");
-                    return;
-                case UnitName.Iu:
-                    serializer.Serialize(writer, "IU");
-                    return;
-                case UnitName.Kcal:
-                    serializer.Serialize(writer, "KCAL");
-                    return;
-                case UnitName.Mg:
-                    serializer.Serialize(writer, "MG");
-                    return;
-                case UnitName.Ug:
-                    serializer.Serialize(writer, "UG");
-                    return;
-                case UnitName.KJ:
-                    serializer.Serialize(writer, "kJ");
-                    return;
-            }
-            throw new Exception("Cannot marshal type UnitName");
-        }
+    //    public override void WriteJson(JsonWriter writer, object untypedValue, JsonSerializer serializer)
+    //    {
+    //        if (untypedValue == null)
+    //        {
+    //            serializer.Serialize(writer, null);
+    //            return;
+    //        }
+    //        var value = (Description)untypedValue;
+    //        switch (value)
+    //        {
+    //            case Description.AdditionalDescriptionsForTheFood:
+    //                serializer.Serialize(writer, "Additional descriptions for the food.");
+    //                return;
+    //            case Description.AdjustmentsMadeToFoodsIncludingMoistureChanges:
+    //                serializer.Serialize(writer, "Adjustments made to foods, including moisture changes");
+    //                return;
+    //            case Description.GenericAttributes:
+    //                serializer.Serialize(writer, "Generic attributes");
+    //                return;
+    //        }
+    //        throw new Exception("Cannot marshal type Description");
+    //    }
 
-        public static readonly UnitNameConverter Singleton = new UnitNameConverter();
-    }
+    //    public static readonly DescriptionConverter Singleton = new DescriptionConverter();
+    //}
 
-    internal class MarketCountryConverter : JsonConverter
-    {
-        public override bool CanConvert(Type t) => t == typeof(MarketCountry) || t == typeof(MarketCountry?);
+    //internal class FoodAttributeNameConverter : JsonConverter
+    //{
+    //    public override bool CanConvert(Type t) => t == typeof(FoodAttributeName) || t == typeof(FoodAttributeName?);
 
-        public override object ReadJson(JsonReader reader, Type t, object existingValue, JsonSerializer serializer)
-        {
-            if (reader.TokenType == JsonToken.Null) return null;
-            var value = serializer.Deserialize<string>(reader);
-            if (value == "United States")
-            {
-                return MarketCountry.UnitedStates;
-            }
-            throw new Exception("Cannot unmarshal type MarketCountry");
-        }
+    //    public override object ReadJson(JsonReader reader, Type t, object existingValue, JsonSerializer serializer)
+    //    {
+    //        if (reader.TokenType == JsonToken.Null) return null;
+    //        var value = serializer.Deserialize<string>(reader);
+    //        switch (value)
+    //        {
+    //            case "WWEIA Category description":
+    //                return FoodAttributeName.WweiaCategoryDescription;
+    //            case "WWEIA Category number":
+    //                return FoodAttributeName.WweiaCategoryNumber;
+    //        }
+    //        throw new Exception("Cannot unmarshal type FoodAttributeName");
+    //    }
 
-        public override void WriteJson(JsonWriter writer, object untypedValue, JsonSerializer serializer)
-        {
-            if (untypedValue == null)
-            {
-                serializer.Serialize(writer, null);
-                return;
-            }
-            var value = (MarketCountry)untypedValue;
-            if (value == MarketCountry.UnitedStates)
-            {
-                serializer.Serialize(writer, "United States");
-                return;
-            }
-            throw new Exception("Cannot marshal type MarketCountry");
-        }
+    //    public override void WriteJson(JsonWriter writer, object untypedValue, JsonSerializer serializer)
+    //    {
+    //        if (untypedValue == null)
+    //        {
+    //            serializer.Serialize(writer, null);
+    //            return;
+    //        }
+    //        var value = (FoodAttributeName)untypedValue;
+    //        switch (value)
+    //        {
+    //            case FoodAttributeName.WweiaCategoryDescription:
+    //                serializer.Serialize(writer, "WWEIA Category description");
+    //                return;
+    //            case FoodAttributeName.WweiaCategoryNumber:
+    //                serializer.Serialize(writer, "WWEIA Category number");
+    //                return;
+    //        }
+    //        throw new Exception("Cannot marshal type FoodAttributeName");
+    //    }
 
-        public static readonly MarketCountryConverter Singleton = new MarketCountryConverter();
-    }
+    //    public static readonly FoodAttributeNameConverter Singleton = new FoodAttributeNameConverter();
+    //}
 
-    internal class TradeChannelConverter : JsonConverter
-    {
-        public override bool CanConvert(Type t) => t == typeof(TradeChannel) || t == typeof(TradeChannel?);
+    //internal class FoodAttributeTypeNameConverter : JsonConverter
+    //{
+    //    public override bool CanConvert(Type t) => t == typeof(FoodAttributeTypeName) || t == typeof(FoodAttributeTypeName?);
 
-        public override object ReadJson(JsonReader reader, Type t, object existingValue, JsonSerializer serializer)
-        {
-            if (reader.TokenType == JsonToken.Null) return null;
-            var value = serializer.Deserialize<string>(reader);
-            if (value == "NO_TRADE_CHANNEL")
-            {
-                return TradeChannel.NoTradeChannel;
-            }
-            throw new Exception("Cannot unmarshal type TradeChannel");
-        }
+    //    public override object ReadJson(JsonReader reader, Type t, object existingValue, JsonSerializer serializer)
+    //    {
+    //        if (reader.TokenType == JsonToken.Null) return null;
+    //        var value = serializer.Deserialize<string>(reader);
+    //        switch (value)
+    //        {
+    //            case "Additional Description":
+    //                return FoodAttributeTypeName.AdditionalDescription;
+    //            case "Adjustments":
+    //                return FoodAttributeTypeName.Adjustments;
+    //            case "Attribute":
+    //                return FoodAttributeTypeName.Attribute;
+    //        }
+    //        throw new Exception("Cannot unmarshal type FoodAttributeTypeName");
+    //    }
 
-        public override void WriteJson(JsonWriter writer, object untypedValue, JsonSerializer serializer)
-        {
-            if (untypedValue == null)
-            {
-                serializer.Serialize(writer, null);
-                return;
-            }
-            var value = (TradeChannel)untypedValue;
-            if (value == TradeChannel.NoTradeChannel)
-            {
-                serializer.Serialize(writer, "NO_TRADE_CHANNEL");
-                return;
-            }
-            throw new Exception("Cannot marshal type TradeChannel");
-        }
+    //    public override void WriteJson(JsonWriter writer, object untypedValue, JsonSerializer serializer)
+    //    {
+    //        if (untypedValue == null)
+    //        {
+    //            serializer.Serialize(writer, null);
+    //            return;
+    //        }
+    //        var value = (FoodAttributeTypeName)untypedValue;
+    //        switch (value)
+    //        {
+    //            case FoodAttributeTypeName.AdditionalDescription:
+    //                serializer.Serialize(writer, "Additional Description");
+    //                return;
+    //            case FoodAttributeTypeName.Adjustments:
+    //                serializer.Serialize(writer, "Adjustments");
+    //                return;
+    //            case FoodAttributeTypeName.Attribute:
+    //                serializer.Serialize(writer, "Attribute");
+    //                return;
+    //        }
+    //        throw new Exception("Cannot marshal type FoodAttributeTypeName");
+    //    }
 
-        public static readonly TradeChannelConverter Singleton = new TradeChannelConverter();
-    }
+    //    public static readonly FoodAttributeTypeNameConverter Singleton = new FoodAttributeTypeNameConverter();
+    //}
+
+    //internal class MeasureUnitConverter : JsonConverter
+    //{
+    //    public override bool CanConvert(Type t) => t == typeof(MeasureUnit) || t == typeof(MeasureUnit?);
+
+    //    public override object ReadJson(JsonReader reader, Type t, object existingValue, JsonSerializer serializer)
+    //    {
+    //        if (reader.TokenType == JsonToken.Null) return null;
+    //        var value = serializer.Deserialize<string>(reader);
+    //        if (value == "undetermined")
+    //        {
+    //            return MeasureUnit.Undetermined;
+    //        }
+    //        throw new Exception("Cannot unmarshal type MeasureUnit");
+    //    }
+
+    //    public override void WriteJson(JsonWriter writer, object untypedValue, JsonSerializer serializer)
+    //    {
+    //        if (untypedValue == null)
+    //        {
+    //            serializer.Serialize(writer, null);
+    //            return;
+    //        }
+    //        var value = (MeasureUnit)untypedValue;
+    //        if (value == MeasureUnit.Undetermined)
+    //        {
+    //            serializer.Serialize(writer, "undetermined");
+    //            return;
+    //        }
+    //        throw new Exception("Cannot marshal type MeasureUnit");
+    //    }
+
+    //    public static readonly MeasureUnitConverter Singleton = new MeasureUnitConverter();
+    //}
+
+    //internal class DerivationCodeConverter : JsonConverter
+    //{
+    //    public override bool CanConvert(Type t) => t == typeof(DerivationCode) || t == typeof(DerivationCode?);
+
+    //    public override object ReadJson(JsonReader reader, Type t, object existingValue, JsonSerializer serializer)
+    //    {
+    //        if (reader.TokenType == JsonToken.Null) return null;
+    //        var value = serializer.Deserialize<string>(reader);
+    //        switch (value)
+    //        {
+    //            case "A":
+    //                return DerivationCode.A;
+    //            case "BFFN":
+    //                return DerivationCode.Bffn;
+    //            case "BFNN":
+    //                return DerivationCode.Bfnn;
+    //            case "BFPN":
+    //                return DerivationCode.Bfpn;
+    //            case "BFYN":
+    //                return DerivationCode.Bfyn;
+    //            case "BFZN":
+    //                return DerivationCode.Bfzn;
+    //            case "CASN":
+    //                return DerivationCode.Casn;
+    //            case "FLC":
+    //                return DerivationCode.Flc;
+    //            case "LC":
+    //                return DerivationCode.Lc;
+    //            case "LCCD":
+    //                return DerivationCode.Lccd;
+    //            case "LCCS":
+    //                return DerivationCode.Lccs;
+    //            case "LCSL":
+    //                return DerivationCode.Lcsl;
+    //            case "NC":
+    //                return DerivationCode.Nc;
+    //            case "NR":
+    //                return DerivationCode.Nr;
+    //            case "O":
+    //                return DerivationCode.O;
+    //            case "T":
+    //                return DerivationCode.T;
+    //            case "Z":
+    //                return DerivationCode.Z;
+    //        }
+    //        throw new Exception("Cannot unmarshal type DerivationCode");
+    //    }
+
+    //    public override void WriteJson(JsonWriter writer, object untypedValue, JsonSerializer serializer)
+    //    {
+    //        if (untypedValue == null)
+    //        {
+    //            serializer.Serialize(writer, null);
+    //            return;
+    //        }
+    //        var value = (DerivationCode)untypedValue;
+    //        switch (value)
+    //        {
+    //            case DerivationCode.A:
+    //                serializer.Serialize(writer, "A");
+    //                return;
+    //            case DerivationCode.Bffn:
+    //                serializer.Serialize(writer, "BFFN");
+    //                return;
+    //            case DerivationCode.Bfnn:
+    //                serializer.Serialize(writer, "BFNN");
+    //                return;
+    //            case DerivationCode.Bfpn:
+    //                serializer.Serialize(writer, "BFPN");
+    //                return;
+    //            case DerivationCode.Bfyn:
+    //                serializer.Serialize(writer, "BFYN");
+    //                return;
+    //            case DerivationCode.Bfzn:
+    //                serializer.Serialize(writer, "BFZN");
+    //                return;
+    //            case DerivationCode.Casn:
+    //                serializer.Serialize(writer, "CASN");
+    //                return;
+    //            case DerivationCode.Flc:
+    //                serializer.Serialize(writer, "FLC");
+    //                return;
+    //            case DerivationCode.Lc:
+    //                serializer.Serialize(writer, "LC");
+    //                return;
+    //            case DerivationCode.Lccd:
+    //                serializer.Serialize(writer, "LCCD");
+    //                return;
+    //            case DerivationCode.Lccs:
+    //                serializer.Serialize(writer, "LCCS");
+    //                return;
+    //            case DerivationCode.Lcsl:
+    //                serializer.Serialize(writer, "LCSL");
+    //                return;
+    //            case DerivationCode.Nc:
+    //                serializer.Serialize(writer, "NC");
+    //                return;
+    //            case DerivationCode.Nr:
+    //                serializer.Serialize(writer, "NR");
+    //                return;
+    //            case DerivationCode.O:
+    //                serializer.Serialize(writer, "O");
+    //                return;
+    //            case DerivationCode.T:
+    //                serializer.Serialize(writer, "T");
+    //                return;
+    //            case DerivationCode.Z:
+    //                serializer.Serialize(writer, "Z");
+    //                return;
+    //        }
+    //        throw new Exception("Cannot marshal type DerivationCode");
+    //    }
+
+    //    public static readonly DerivationCodeConverter Singleton = new DerivationCodeConverter();
+    //}
+
+    //internal class FoodNutrientSourceDescriptionConverter : JsonConverter
+    //{
+    //    public override bool CanConvert(Type t) => t == typeof(FoodNutrientSourceDescription) || t == typeof(FoodNutrientSourceDescription?);
+
+    //    public override object ReadJson(JsonReader reader, Type t, object existingValue, JsonSerializer serializer)
+    //    {
+    //        if (reader.TokenType == JsonToken.Null) return null;
+    //        var value = serializer.Deserialize<string>(reader);
+    //        switch (value)
+    //        {
+    //            case "Analytical or derived from analytical":
+    //                return FoodNutrientSourceDescription.AnalyticalOrDerivedFromAnalytical;
+    //            case "Assumed zero":
+    //                return FoodNutrientSourceDescription.AssumedZero;
+    //            case "Calculated from nutrient label by NDL":
+    //                return FoodNutrientSourceDescription.CalculatedFromNutrientLabelByNdl;
+    //            case "Calculated or imputed":
+    //                return FoodNutrientSourceDescription.CalculatedOrImputed;
+    //            case "Manufacturer's analytical; partial documentation":
+    //                return FoodNutrientSourceDescription.ManufacturerSAnalyticalPartialDocumentation;
+    //        }
+    //        throw new Exception("Cannot unmarshal type FoodNutrientSourceDescription");
+    //    }
+
+    //    public override void WriteJson(JsonWriter writer, object untypedValue, JsonSerializer serializer)
+    //    {
+    //        if (untypedValue == null)
+    //        {
+    //            serializer.Serialize(writer, null);
+    //            return;
+    //        }
+    //        var value = (FoodNutrientSourceDescription)untypedValue;
+    //        switch (value)
+    //        {
+    //            case FoodNutrientSourceDescription.AnalyticalOrDerivedFromAnalytical:
+    //                serializer.Serialize(writer, "Analytical or derived from analytical");
+    //                return;
+    //            case FoodNutrientSourceDescription.AssumedZero:
+    //                serializer.Serialize(writer, "Assumed zero");
+    //                return;
+    //            case FoodNutrientSourceDescription.CalculatedFromNutrientLabelByNdl:
+    //                serializer.Serialize(writer, "Calculated from nutrient label by NDL");
+    //                return;
+    //            case FoodNutrientSourceDescription.CalculatedOrImputed:
+    //                serializer.Serialize(writer, "Calculated or imputed");
+    //                return;
+    //            case FoodNutrientSourceDescription.ManufacturerSAnalyticalPartialDocumentation:
+    //                serializer.Serialize(writer, "Manufacturer's analytical; partial documentation");
+    //                return;
+    //        }
+    //        throw new Exception("Cannot marshal type FoodNutrientSourceDescription");
+    //    }
+
+    //    public static readonly FoodNutrientSourceDescriptionConverter Singleton = new FoodNutrientSourceDescriptionConverter();
+    //}
+
+    //internal class UnitNameConverter : JsonConverter
+    //{
+    //    public override bool CanConvert(Type t) => t == typeof(UnitName) || t == typeof(UnitName?);
+
+    //    public override object ReadJson(JsonReader reader, Type t, object existingValue, JsonSerializer serializer)
+    //    {
+    //        if (reader.TokenType == JsonToken.Null) return null;
+    //        var value = serializer.Deserialize<string>(reader);
+    //        switch (value)
+    //        {
+    //            case "G":
+    //                return UnitName.G;
+    //            case "IU":
+    //                return UnitName.Iu;
+    //            case "KCAL":
+    //                return UnitName.Kcal;
+    //            case "MG":
+    //                return UnitName.Mg;
+    //            case "UG":
+    //                return UnitName.Ug;
+    //            case "kJ":
+    //                return UnitName.KJ;
+    //        }
+    //        throw new Exception("Cannot unmarshal type UnitName");
+    //    }
+
+    //    public override void WriteJson(JsonWriter writer, object untypedValue, JsonSerializer serializer)
+    //    {
+    //        if (untypedValue == null)
+    //        {
+    //            serializer.Serialize(writer, null);
+    //            return;
+    //        }
+    //        var value = (UnitName)untypedValue;
+    //        switch (value)
+    //        {
+    //            case UnitName.G:
+    //                serializer.Serialize(writer, "G");
+    //                return;
+    //            case UnitName.Iu:
+    //                serializer.Serialize(writer, "IU");
+    //                return;
+    //            case UnitName.Kcal:
+    //                serializer.Serialize(writer, "KCAL");
+    //                return;
+    //            case UnitName.Mg:
+    //                serializer.Serialize(writer, "MG");
+    //                return;
+    //            case UnitName.Ug:
+    //                serializer.Serialize(writer, "UG");
+    //                return;
+    //            case UnitName.KJ:
+    //                serializer.Serialize(writer, "kJ");
+    //                return;
+    //        }
+    //        throw new Exception("Cannot marshal type UnitName");
+    //    }
+
+    //    public static readonly UnitNameConverter Singleton = new UnitNameConverter();
+    //}
+
+    //internal class MarketCountryConverter : JsonConverter
+    //{
+    //    public override bool CanConvert(Type t) => t == typeof(MarketCountry) || t == typeof(MarketCountry?);
+
+    //    public override object ReadJson(JsonReader reader, Type t, object existingValue, JsonSerializer serializer)
+    //    {
+    //        if (reader.TokenType == JsonToken.Null) return null;
+    //        var value = serializer.Deserialize<string>(reader);
+    //        if (value == "United States")
+    //        {
+    //            return MarketCountry.UnitedStates;
+    //        }
+    //        throw new Exception("Cannot unmarshal type MarketCountry");
+    //    }
+
+    //    public override void WriteJson(JsonWriter writer, object untypedValue, JsonSerializer serializer)
+    //    {
+    //        if (untypedValue == null)
+    //        {
+    //            serializer.Serialize(writer, null);
+    //            return;
+    //        }
+    //        var value = (MarketCountry)untypedValue;
+    //        if (value == MarketCountry.UnitedStates)
+    //        {
+    //            serializer.Serialize(writer, "United States");
+    //            return;
+    //        }
+    //        throw new Exception("Cannot marshal type MarketCountry");
+    //    }
+
+    //    public static readonly MarketCountryConverter Singleton = new MarketCountryConverter();
+    //}
+
+    //internal class ServingSizeUnitConverter : JsonConverter
+    //{
+    //    public override bool CanConvert(Type t) => t == typeof(ServingSizeUnit) || t == typeof(ServingSizeUnit?);
+
+    //    public override object ReadJson(JsonReader reader, Type t, object existingValue, JsonSerializer serializer)
+    //    {
+    //        if (reader.TokenType == JsonToken.Null) return null;
+    //        var value = serializer.Deserialize<string>(reader);
+    //        switch (value)
+    //        {
+    //            case "GRM":
+    //                return ServingSizeUnit.Grm;
+    //            case "MG":
+    //                return ServingSizeUnit.Mg;
+    //            case "g":
+    //                return ServingSizeUnit.G;
+    //        }
+    //        throw new Exception("Cannot unmarshal type ServingSizeUnit");
+    //    }
+
+    //    public override void WriteJson(JsonWriter writer, object untypedValue, JsonSerializer serializer)
+    //    {
+    //        if (untypedValue == null)
+    //        {
+    //            serializer.Serialize(writer, null);
+    //            return;
+    //        }
+    //        var value = (ServingSizeUnit)untypedValue;
+    //        switch (value)
+    //        {
+    //            case ServingSizeUnit.Grm:
+    //                serializer.Serialize(writer, "GRM");
+    //                return;
+    //            case ServingSizeUnit.Mg:
+    //                serializer.Serialize(writer, "MG");
+    //                return;
+    //            case ServingSizeUnit.G:
+    //                serializer.Serialize(writer, "g");
+    //                return;
+    //        }
+    //        throw new Exception("Cannot marshal type ServingSizeUnit");
+    //    }
+
+    //    public static readonly ServingSizeUnitConverter Singleton = new ServingSizeUnitConverter();
+    //}
+
+    //internal class TradeChannelConverter : JsonConverter
+    //{
+    //    public override bool CanConvert(Type t) => t == typeof(TradeChannel) || t == typeof(TradeChannel?);
+
+    //    public override object ReadJson(JsonReader reader, Type t, object existingValue, JsonSerializer serializer)
+    //    {
+    //        if (reader.TokenType == JsonToken.Null) return null;
+    //        var value = serializer.Deserialize<string>(reader);
+    //        if (value == "NO_TRADE_CHANNEL")
+    //        {
+    //            return TradeChannel.NoTradeChannel;
+    //        }
+    //        throw new Exception("Cannot unmarshal type TradeChannel");
+    //    }
+
+    //    public override void WriteJson(JsonWriter writer, object untypedValue, JsonSerializer serializer)
+    //    {
+    //        if (untypedValue == null)
+    //        {
+    //            serializer.Serialize(writer, null);
+    //            return;
+    //        }
+    //        var value = (TradeChannel)untypedValue;
+    //        if (value == TradeChannel.NoTradeChannel)
+    //        {
+    //            serializer.Serialize(writer, "NO_TRADE_CHANNEL");
+    //            return;
+    //        }
+    //        throw new Exception("Cannot marshal type TradeChannel");
+    //    }
+
+    //    public static readonly TradeChannelConverter Singleton = new TradeChannelConverter();
+    //}
 }
